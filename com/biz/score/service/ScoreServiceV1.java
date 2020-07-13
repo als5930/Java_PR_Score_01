@@ -221,54 +221,54 @@ public class ScoreServiceV1 implements ScoreService {
 	}
 
 	public void saveScore() {
-		PrintStream Stream = null;
+		PrintStream output;
 		String savefile = "src/com/biz/score/date/scoreList.txt";
 
 		try {
 
-			Stream = new PrintStream(savefile);
+			output = new PrintStream(savefile);
 
 			Arrays.fill(totalSum, 0);
 			Arrays.fill(totalAvg, 0);
 
-			Stream.println("성적 일람표");
-			Stream.println("========================================================");
-			Stream.printf("학번\t|국어\t|영어\t|수학\t|음악\t|총점\t|평균\t|\n");
-			Stream.println("--------------------------------------------------------");
+			output.println("성적 일람표");
+			output.println("========================================================");
+			output.printf("학번\t|국어\t|영어\t|수학\t|음악\t|총점\t|평균\t|\n");
+			output.println("--------------------------------------------------------");
 
 			for (ScoreVO sVO : scoreList) {
 
-				Stream.printf("%s\t\t|", sVO.getNum());
-				Stream.printf("%d\t\t|", sVO.getKor());
-				Stream.printf("%d\t\t|", sVO.getEng());
-				Stream.printf("%d\t\t|", sVO.getMath());
-				Stream.printf("%d\t\t|", sVO.getMusic());
-				Stream.printf("%d\t\t|", sVO.getSum());
-				Stream.printf("%5.2f\t\t|\n", sVO.getAvg());
+				output.printf("%s\t\t|", sVO.getNum());
+				output.printf("%d\t\t|", sVO.getKor());
+				output.printf("%d\t\t|", sVO.getEng());
+				output.printf("%d\t\t|", sVO.getMath());
+				output.printf("%d\t\t|", sVO.getMusic());
+				output.printf("%d\t\t|", sVO.getSum());
+				output.printf("%5.2f\t\t|\n", sVO.getAvg());
 
 				totalSum[0] += sVO.getKor();
 				totalSum[1] += sVO.getEng();
 				totalSum[2] += sVO.getMath();
 				totalSum[3] += sVO.getMusic();
 			}
-			Stream.println("--------------------------------------------------------");
-			Stream.print("과목총점|");
+			output.println("--------------------------------------------------------");
+			output.print("과목총점|");
 			int sumAndSum = 0;
 			for (int sum : totalSum) {
-				Stream.printf("%s\t|", sum);
+				output.printf("%s\t|", sum);
 				sumAndSum += sum;
 			}
-			Stream.printf("%s\t|\n", sumAndSum);
+			output.printf("%s\t|\n", sumAndSum);
 
-			Stream.print("과목평균|");
+			output.print("과목평균|");
 			float avgAndAvg = 0f;
 			for (int sum : totalSum) {
 				float avg = (float) sum / totalSum.length;
-				Stream.printf("%5.2f\t|", avg);
+				output.printf("%5.2f\t|", avg);
 				avgAndAvg += avg;
 			}
-			Stream.printf("\t|%5.2f\t\t|\n", (float) avgAndAvg / scoreList.size());
-			Stream.println("========================================================");
+			output.printf("\t|%5.2f\t\t|\n", (float) avgAndAvg / scoreList.size());
+			output.println("========================================================");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
